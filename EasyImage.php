@@ -253,6 +253,10 @@ class EasyImage extends Component
                     break;
                 case 'path':
                     break;
+                case 'save_path':
+                    break;
+                case 'save_name':
+                    break;
                 default:
                     throw new \Exception('Action "' . $key . '" is not found');
             }
@@ -273,10 +277,11 @@ class EasyImage extends Component
     {
         // Paths
         $hash = md5($file . serialize($params) . (string)$hash);
-        $cachePath = empty($params['path']) ? Yii::getAlias($this->basePath) . $this->cachePath . 'easyimage/' . $hash{0} : Yii::getAlias($this->basePath) . $this->cachePath . $params['path'];
+        $cachePath = empty($params['save_path']) ? Yii::getAlias($this->basePath) . $this->cachePath . 'easyimage/' . $hash{0} : Yii::getAlias($this->basePath) . $this->cachePath . $params['save_path'];
         // $cachePath = Yii::getAlias($this->basePath) . $this->cachePath . $hash{0};
         $cacheFileExt = isset($params['type']) ? $params['type'] : pathinfo($file, PATHINFO_EXTENSION);
-        $cacheFileName = $hash . '.' . $cacheFileExt;
+        $cacheFileName = isset($params['save_name']) ? $params['save_name'] . '.' . $cacheFileExt : $hash . '.' . $cacheFileExt;
+        // $cacheFileName = $hash . '.' . $cacheFileExt;
         $cacheFile = $cachePath . DIRECTORY_SEPARATOR . $cacheFileName;
         $webCacheFile = Yii::getAlias($this->baseUrl) . $this->cachePath . $hash{0} . '/' . $cacheFileName;
 
