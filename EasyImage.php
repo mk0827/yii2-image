@@ -251,6 +251,8 @@ class EasyImage extends Component
                     break;
                 case 'type':
                     break;
+                case 'path':
+                    break;
                 default:
                     throw new \Exception('Action "' . $key . '" is not found');
             }
