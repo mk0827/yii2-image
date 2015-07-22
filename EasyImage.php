@@ -44,7 +44,7 @@ class EasyImage extends Component
     /**
      * @var string relative path where the cache files are kept
      */
-    public $cachePath = '/easyimage/';
+    public $cachePath = '/uploads/';
 
     /**
      * @var int cache lifetime in seconds
@@ -271,7 +271,8 @@ class EasyImage extends Component
     {
         // Paths
         $hash = md5($file . serialize($params) . (string)$hash);
-        $cachePath = Yii::getAlias($this->basePath) . $this->cachePath . $hash{0};
+        $cachePath = empty($params['path']) ? Yii::getAlias($this->basePath) . $this->cachePath . 'easyimage/' . $hash{0} : Yii::getAlias($this->basePath) . $this->cachePath . $params['path'];
+        // $cachePath = Yii::getAlias($this->basePath) . $this->cachePath . $hash{0};
         $cacheFileExt = isset($params['type']) ? $params['type'] : pathinfo($file, PATHINFO_EXTENSION);
         $cacheFileName = $hash . '.' . $cacheFileExt;
         $cacheFile = $cachePath . DIRECTORY_SEPARATOR . $cacheFileName;
